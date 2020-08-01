@@ -30,6 +30,7 @@ img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
 
 total=0
 lines =[]
+Meanline = []
 def on_mouse(event, x, y, flags, params):
     global img
     global boxes
@@ -47,8 +48,16 @@ def on_mouse(event, x, y, flags, params):
                     line.append(img[boxes[0][1]-j,i+j])
                 lines.append(line)
     
+            for i in range(len(lines[0])):
+                c=0
+                for j in range(30):
+                    c+=lines[j][i]
+                c/=30
+                Meanline.append(c)
             for line in lines:
                 plt.plot(line)
+            plt.show()
+            plt.plot(Meanline)
             plt.show()
 
 cv2.namedWindow('real image')       
